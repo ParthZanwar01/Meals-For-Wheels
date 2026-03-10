@@ -34,7 +34,7 @@ export const CanvasScrollAnimation = ({ frameCount = 240, height = "400vh", clas
         setImages(loadedImages);
     }, [frameCount]);
 
-    // Handle canvas sizing and initial draw
+    // Handle canvas sizing and initial draw (high-DPI for sharp rendering on retina)
     useLayoutEffect(() => {
         if (!loaded || !canvasRef.current || images.length === 0) return;
 
@@ -42,10 +42,21 @@ export const CanvasScrollAnimation = ({ frameCount = 240, height = "400vh", clas
         const context = canvas.getContext("2d");
 
         const updateCanvasSize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            // Draw first frame on resize
-            requestAnimationFrame(() => drawImageScaled(images[0], context, canvas));
+            const dpr = Math.min(window.devicePixelRatio || 2, 2); // Cap at 2x for performance
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = `${w}px`;
+            canvas.style.height = `${h}px`;
+            context.scale(dpr, dpr);
+
+            // Higher quality image scaling
+            context.imageSmoothingEnabled = true;
+            context.imageSmoothingQuality = 'high';
+
+            requestAnimationFrame(() => drawImageScaled(images[0], context, w, h));
         };
 
         window.addEventListener("resize", updateCanvasSize);
@@ -54,18 +65,18 @@ export const CanvasScrollAnimation = ({ frameCount = 240, height = "400vh", clas
         return () => window.removeEventListener("resize", updateCanvasSize);
     }, [loaded, images]);
 
-    // Draw helper to cover the canvas like `object-fit: cover`
-    const drawImageScaled = (img, ctx, canvas) => {
+    // Draw helper to cover the canvas like `object-fit: cover` (uses logical w, h after scale)
+    const drawImageScaled = (img, ctx, w, h) => {
         if (!img) return;
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, w, h);
 
-        const hRatio = canvas.width / img.width;
-        const vRatio = canvas.height / img.height;
+        const hRatio = w / img.width;
+        const vRatio = h / img.height;
         const ratio = Math.max(hRatio, vRatio); // Use max for "cover" effect
 
-        const centerShift_x = (canvas.width - img.width * ratio) / 2;
-        const centerShift_y = (canvas.height - img.height * ratio) / 2;
+        const centerShift_x = (w - img.width * ratio) / 2;
+        const centerShift_y = (h - img.height * ratio) / 2;
 
         ctx.drawImage(img, 0, 0, img.width, img.height,
             centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
@@ -105,7 +116,9 @@ export const CanvasScrollAnimation = ({ frameCount = 240, height = "400vh", clas
                 Math.floor(scrollFraction * frameCount)
             );
 
-            requestAnimationFrame(() => drawImageScaled(images[frameIndex], context, canvas));
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            requestAnimationFrame(() => drawImageScaled(images[frameIndex], context, w, h));
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });

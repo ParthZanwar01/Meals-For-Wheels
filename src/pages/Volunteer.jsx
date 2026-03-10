@@ -1,14 +1,21 @@
 import { useState } from 'react';
-import { HeartHandshake, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HeartHandshake, CheckCircle2, Loader2 } from 'lucide-react';
 
 const Volunteer = () => {
     const [formData, setFormData] = useState({
         name: '', email: '', whyJoin: '', standOut: '', resume: null
     });
     const [submitted, setSubmitted] = useState(false);
+    const [focused, setFocused] = useState(null);
+    const [uploading, setUploading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
+        if (name === 'resume' && files?.[0]) {
+            setUploading(true);
+            setTimeout(() => setUploading(false), 1200);
+        }
         setFormData(prev => ({
             ...prev,
             [name]: files ? files[0] : value
@@ -65,9 +72,16 @@ const Volunteer = () => {
                                 </div>
                             </div>
 
-                            <div>
+                            <div className="relative">
                                 <label className="block font-semibold mb-2 text-foreground/90 text-sm tracking-wide">WHY DO YOU WANT TO JOIN?</label>
-                                <textarea name="whyJoin" rows="3" required onChange={handleChange} className="w-full p-3.5 bg-muted/50 border border-border rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base resize-none" placeholder="I believe in giving back..."></textarea>
+                                <div className="relative">
+                                    <AnimatePresence>
+                                        {focused !== 'whyJoin' && !formData.whyJoin && (
+                                            <motion.span initial={{ opacity: 1 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }} className="absolute left-3.5 top-3.5 text-muted-foreground text-base pointer-events-none">I believe in giving back...</motion.span>
+                                        )}
+                                    </AnimatePresence>
+                                    <textarea name="whyJoin" rows="3" required onChange={handleChange} onFocus={() => setFocused('whyJoin')} onBlur={() => setFocused(null)} className="w-full p-3.5 bg-muted/50 border border-border rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base resize-none relative z-10" placeholder=" "></textarea>
+                                </div>
                             </div>
 
                             <div>
@@ -77,20 +91,34 @@ const Volunteer = () => {
 
                             <div>
                                 <label className="block font-semibold mb-2 text-foreground/90 text-sm tracking-wide">RESUME (OPTIONAL)</label>
-                                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-border border-dashed rounded-xl hover:border-primary/50 transition-colors bg-muted/20">
-                                    <div className="space-y-1 text-center">
-                                        <svg className="mx-auto h-12 w-12 text-muted-foreground/60" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                        <div className="flex text-sm text-muted-foreground justify-center">
-                                            <label htmlFor="file-upload" className="relative cursor-pointer rounded-md font-medium text-primary hover:text-primary/80 focus-within:outline-none">
-                                                <span>Upload a file</span>
-                                                <input id="file-upload" name="resume" type="file" className="sr-only" onChange={handleChange} accept=".pdf,.doc,.docx" />
-                                            </label>
-                                            <p className="pl-1">or drag and drop</p>
-                                        </div>
-                                        <p className="text-xs text-muted-foreground">PDF, DOC, DOCX up to 10MB</p>
-                                    </div>
+                                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-border border-dashed rounded-xl hover:border-primary/50 transition-colors bg-muted/20 relative min-h-[140px] items-center">
+                                    <AnimatePresence mode="wait">
+                                        {uploading ? (
+                                            <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center gap-2">
+                                                <Loader2 className="h-10 w-10 text-primary animate-spin" />
+                                                <p className="text-sm text-muted-foreground">Processing...</p>
+                                            </motion.div>
+                                        ) : formData.resume ? (
+                                            <motion.div key="done" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center gap-2">
+                                                <CheckCircle2 className="h-10 w-10 text-green-500" />
+                                                <p className="text-sm font-medium text-foreground">{formData.resume.name}</p>
+                                            </motion.div>
+                                        ) : (
+                                            <motion.div key="upload" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-1 text-center">
+                                                <svg className="mx-auto h-12 w-12 text-muted-foreground/60" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <div className="flex text-sm text-muted-foreground justify-center">
+                                                    <label htmlFor="file-upload" className="relative cursor-pointer rounded-md font-medium text-primary hover:text-primary/80 focus-within:outline-none">
+                                                        <span>Upload a file</span>
+                                                        <input id="file-upload" name="resume" type="file" className="sr-only" onChange={handleChange} accept=".pdf,.doc,.docx" />
+                                                    </label>
+                                                    <p className="pl-1">or drag and drop</p>
+                                                </div>
+                                                <p className="text-xs text-muted-foreground">PDF, DOC, DOCX up to 10MB</p>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </div>
                             </div>
 
