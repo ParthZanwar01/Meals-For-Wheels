@@ -100,8 +100,8 @@ const Home = () => {
                             </motion.div>
                         </div>
 
-                            {/* 6) Programs left, Contact right — fixed to viewport edges (avoids parent constraints) */}
-                            <motion.div style={{ opacity: opacity6, y: y6 }} className="fixed left-0 right-0 top-0 bottom-0 pointer-events-auto z-[100] flex items-center justify-between px-2 sm:px-4 md:px-6 lg:px-8">
+                            {/* 6) Programs left, Contact right — absolute, full width, pushed to edges */}
+                            <motion.div style={{ opacity: opacity6, y: y6 }} className="absolute inset-0 pointer-events-auto z-20 flex items-center justify-between w-full px-4 sm:px-6 md:px-8 lg:px-12">
                                 <div className="flex flex-col items-start max-w-[220px] lg:max-w-[260px] text-left text-white">
                                     <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold font-heading mb-3 drop-shadow-xl">Community Programs</h2>
                                     <p className="text-base md:text-lg text-white/80 mb-4 drop-shadow-md">
