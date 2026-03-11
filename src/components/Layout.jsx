@@ -20,7 +20,7 @@ const Layout = () => {
                     {!isHome && <Navbar />}
                 </div>
 
-                <main className="main-content flex-grow" style={{ paddingTop: isHome ? '0' : '80px' }}>
+                <main className="main-content flex-grow pointer-events-auto" style={{ paddingTop: isHome ? '0' : '80px' }}>
                     <Outlet />
                 </main>
 
