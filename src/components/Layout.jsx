@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { InteractiveGlobe } from './ui/interactive-globe';
 
 const Layout = () => {
     const location = useLocation();
@@ -9,10 +8,8 @@ const Layout = () => {
 
     return (
         <div className="app-container relative min-h-screen">
-            {/* --- Global Persistent Background --- (hidden on home; home uses canvas scroll Earth) */}
-            <div className="fixed inset-0 w-full h-full z-0 pointer-events-auto bg-black">
-                {!isHome && <InteractiveGlobe />}
-            </div>
+            {/* --- Global Background --- */}
+            <div className="fixed inset-0 w-full h-full z-0 pointer-events-auto bg-black" />
 
             {/* --- Foregound Content --- */}
             <div className="relative z-10 pointer-events-none flex flex-col min-h-screen">
