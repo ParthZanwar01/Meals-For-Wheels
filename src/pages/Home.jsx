@@ -61,7 +61,7 @@ const Home = () => {
                                 <p className="text-xl md:text-3xl text-white/90 font-medium drop-shadow-md mb-8 max-w-2xl">
                                     Nourishing communities across the globe, one rotation at a time.
                                 </p>
-                                <Link to="/programs" className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-full font-bold transition-all hover:scale-105 duration-300">
+                                <Link to="/about" className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-full font-bold transition-all hover:scale-105 duration-300">
                                     Learn Our Story
                                 </Link>
                             </motion.div>

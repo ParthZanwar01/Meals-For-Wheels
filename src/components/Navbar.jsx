@@ -22,6 +22,11 @@ const Navbar = ({ transparent }) => {
         <div className="hidden lg:flex items-center gap-6">
           <ul className={`flex items-center space-x-2 font-medium ${isTransparent ? 'text-white/80' : 'text-muted-foreground'}`}>
             <li>
+              <Link to="/about" className={`px-3 py-2 text-sm transition-colors rounded-lg ${isTransparent ? 'hover:text-white' : 'hover:text-foreground'}`}>
+                About
+              </Link>
+            </li>
+            <li>
               <Link to="/events" className={`px-3 py-2 text-sm transition-colors rounded-lg ${isTransparent ? 'hover:text-white' : 'hover:text-foreground'}`}>
                 Events
               </Link>
@@ -53,6 +58,11 @@ const Navbar = ({ transparent }) => {
       {/* Mobile Menu */}
       <div className={`fixed top-20 left-0 w-full h-[calc(100vh-80px)] bg-background flex flex-col p-6 items-center transition-transform duration-300 ease-in-out lg:hidden ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <ul className="flex flex-col space-y-6 text-xl font-medium text-foreground text-center">
+          <li>
+            <Link to="/about" className="hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>
+              About
+            </Link>
+          </li>
           <li>
             <Link to="/events" className="hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>
               Events

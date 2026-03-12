@@ -6,6 +6,7 @@ import Volunteer from './pages/Volunteer';
 import Donations from './pages/Donations';
 import Programs from './pages/Programs';
 import Contact from './pages/Contact';
+import About from './pages/About';
 import './index.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                     <Route path="donations" element={<Donations />} />
                     <Route path="programs" element={<Programs />} />
                     <Route path="contact" element={<Contact />} />
+                    <Route path="about" element={<About />} />
                 </Route>
             </Routes>
         </Router>
