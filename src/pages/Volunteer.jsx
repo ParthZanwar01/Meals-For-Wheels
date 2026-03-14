@@ -46,11 +46,11 @@ const Volunteer = () => {
                 <div className="flex flex-col lg:flex-row bg-card rounded-[2.5rem] shadow-xl overflow-hidden border border-border min-h-[75vh]">
                     {/* Left Column - Image & Context */}
                     <div className="lg:w-5/12 relative overflow-hidden flex flex-col justify-end p-12 lg:p-16 shine-effect">
-                        <img src="https://images.unsplash.com/photo-1593113630400-ea4288922497?q=80&w=1000&auto=format&fit=crop" alt="Volunteers serving food" className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay" />
+                        <img src="volunteers_serving_meals_1773423529725.png" alt="Volunteers serving food" className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
                         <div className="relative z-10 text-white">
                             <HeartHandshake className="w-12 h-12 mb-6 text-primary" />
-                            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">Volunteer With Us</h2>
+                            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 vibrant-glow">Volunteer With Us</h2>
                             <p className="text-lg text-white/80 leading-relaxed font-medium">Be the fuel that keeps our mobile kitchens running. Whether you're cooking, packing, or driving, your time brings warmth and hope to individuals across the city.</p>
                         </div>
                     </div>

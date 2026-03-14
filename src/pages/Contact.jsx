@@ -5,7 +5,7 @@ const Contact = () => {
         <div className="fade-in pt-32 pb-24 min-h-screen bg-muted/10">
             <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 tracking-tight drop-shadow-sm">Contact Us</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 tracking-tight drop-shadow-sm vibrant-glow">Contact Us</h2>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">We'd love to hear from you. Reach out with any questions, partnership inquiries, or volunteer relations.</p>
                 </div>
 
@@ -31,7 +31,7 @@ const Contact = () => {
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Email Us</h4>
-                                        <p className="text-muted-foreground">hello@mealsformore.org</p>
+                                        <p className="text-muted-foreground">mealsformore1@gmail.com</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
@@ -40,7 +40,7 @@ const Contact = () => {
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Call Us</h4>
-                                        <p className="text-muted-foreground">(555) 123-4567</p>
+                                        <p className="text-muted-foreground">832-235-5474</p>
                                     </div>
                                 </div>
                             </div>

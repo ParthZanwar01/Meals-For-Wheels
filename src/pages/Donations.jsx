@@ -30,7 +30,7 @@ const Donations = () => {
             <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div className="mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight flex items-center justify-center gap-3">
-                        <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/90 to-primary drop-shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                        <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/90 to-primary drop-shadow-[0_0_20px_rgba(239,68,68,0.4)] vibrant-glow">
                             Make a Difference
                         </span>
                         <Heart className="w-8 h-8 text-primary fill-primary animate-pulse" />
